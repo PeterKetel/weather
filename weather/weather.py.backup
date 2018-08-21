@@ -1,0 +1,67 @@
+from weather import User. City
+
+# Process favicon.ico requests
+class icon:
+    def GET(self): raise web.seeother("/static/favicon.png")
+
+@app.route("/")
+def index():
+
+    user = User.query.get(2)
+
+    url= 'http://weerlive.nl/api/json-data-10min.php?key=a00ff03d0d&locatie={}'
+
+    weather_data = []
+
+    for city in user.cities:
+
+        r = requests.get(url.format(city.name)).json()
+
+        weather = {
+            'icon' : r['liveweer'][0]['image'],
+            'city' : city.name,
+            'temperature' : r['liveweer'][0]['temp'],
+            'luchtdruk' : r['liveweer'][0]['luchtd'],
+            'wind_richting': r['liveweer'][0]['windr'],
+            'wind_v': r['liveweer'][0]['windms'],
+            'expected_max_temp' : r['liveweer'][0]['d0tmax'],
+            'expected_min_temp' :r['liveweer'][0]['d0tmin'],
+            'expected_wind_richting': r['liveweer'][0]['d0windr'],
+            'expected_wind_v': r['liveweer'][0]['d0windms'],
+            'expected_icon': r['liveweer'][0]['d0weer'],
+            'description' : r['liveweer'][0]['verw'],
+            'tomorrow_max_temp' : r['liveweer'][0]['d1tmax'],
+            'tomorrow_min_temp' :r['liveweer'][0]['d1tmin'],
+            'tomorrow_wind_richting': r['liveweer'][0]['d1windr'],
+            'tomorrow_wind_v': r['liveweer'][0]['d1windms'],
+            'tomorrow_icon': r['liveweer'][0]['d1weer'],
+            'dayaftertomorrow_max_temp' : r['liveweer'][0]['d2tmax'],
+            'dayaftertomorrow_min_temp' :r['liveweer'][0]['d2tmin'],
+            'dayaftertomorrow_wind_richting': r['liveweer'][0]['d2windr'],
+            'dayaftertomorrow_wind_v': r['liveweer'][0]['d2windms'],
+            'dayaftertomorrow_icon': r['liveweer'][0]['d2weer'],
+        }
+
+        weather_data.append(weather)
+
+    r = requests.get('http://weerlive.nl/api/json-data-10min.php?key=a00ff03d0d&locatie=Bilt').json()
+    if r['liveweer'][0]['alarm'] != '0':
+        alarm_information = {
+            'alarm': r['liveweer'][0]['alarm'],
+            'alarmtxt': r['liveweer'][0]['alarmtxt'],
+        }
+    else:
+        alarm_information = {
+            'alarm': r['liveweer'][0]['alarm'],
+        }
+
+    return render_template('weather.html', weather_data=weather_data, alarm_information=alarm_information)
+
+ButtonPressed=0
+@app.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html', buttonpressed=ButtonPressed)
+
+@app.route('/locations', methods=['GET', 'POST'])
+def locations():
+    return render_template('locations.html')

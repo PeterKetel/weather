@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <head>
+		{% block head %}
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>What's the weather like?</title>
+                <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+                <section class="section hero is-primary is-bold">
+                	<div class="container">
+                	        <h1 class="title">
+                	                Wat is de weersverwachting?
+                	        </h1>
+                	</div>
+			<nav class="navbar is-primary" role="navigation">
+                		<div ddclass="container">
+                		        <div id="navMenu" class="navbar-menu">
+                		        <div class="navbar-end">
+                		            {% if current_user.is_authenticated %}
+						{% if request.path == '/' %}
+                		            		<a href="/" class="navbar-item is-active">Home</a>
+						{% else %}
+                		            		<a href="/" class="navbar-item">Home</a>
+						{% endif %}
+						{% if request.path == '/about' %}
+                		            		<a href="/about" class="navbar-item is-actie">About</a>
+						{% else %}
+                		            		<a href="/about" class="navbar-item">About</a>
+						{% endif %}	
+						{% if request.path == '/account_config' %}
+                		                	<a href="/account_config" class="navbar-item is-active">Gebruiker instellingen</a>
+						{% else %}
+                		                	<a href="/account_config" class="navbar-item ">Gebruiker instellingen</a>
+						{% endif %}
+                		                <a href="/logout" class="navbar-item">Afmelden</a>
+                		            {% else %}
+						{% if request.path == '/register' %}
+                		                	<a href="/register" class="navbar-item is-active">Registreer</a>
+						{% else %}
+                		                	<a href="/register" class="navbar-item">Registreer</a>
+						{% endif %}
+						{% if request.path == '/login' %}
+                		                	<a href="/login" class="navbar-item is-active">Aanmelden</a>
+						{% else %}
+                		                	<a href="/login" class="navbar-item">Aanmelden</a>
+						{% endif %}
+                		            {% endif %}
+                		          </div>
+                		        </div>
+                		</div>
+                	</nav>
+                </section>
+
+		{% with messages = get_flashed_messages(with_categories=true) %}
+        		{% if messages %}
+        			 <section class="section">
+					<div class="notification is-warning">
+						{% for category, message in messages %}
+							<div class="control is-{{ category }}">
+								{{ message }}
+							</div>
+						{% endfor %}
+					</div>
+        			 </section>
+		         {% endif %}
+        	{% endwith %}
+
+		{% endblock %}
+        </head>
+	<body>
+		<div id="content">{% block content %}{% endblock %}</div>
+		<div id="footer">
+			{% block footer %}
+			        <section class="section is-footer">
+	        		        <div class="notification">
+						{% if current_user.is_authenticated %}
+                					<p><small>Aangemelde gebruiker: {{ current_user.user_name }}</small></p>
+                					<p><small>Another fine product from Hestia</small></p>
+						{% else %}
+							<small>
+								<p>Ben je <strong>
+								{% if request.path == '/register' %}
+									al
+								{% else %}
+									niet
+								{% endif %}
+								</strong> geregistreerd?<p>
+								{% if request.path == '/register' %}
+									<a class="button is-info is-outlined" href="{{ url_for('login') }}">login</a>
+								{% elif request.path == '/login' %} 
+									<a class="button is-info is-outlined" href="{{ url_for('register') }}">registreer</a>
+								{% endif %}
+		        		                </small>
+						{% endif %}
+	                		</div>
+	        		</section>
+			{% endblock %}
+		</div>
+	</body>
+</html>

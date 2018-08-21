@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block content %}        
+	<section class="section">
+		<div class="container">
+              	        <form method="POST" action="">
+              	                <!-- CSRF protetction -->
+              	                {{ form.csrf_token }}
+      				<div class="control">
+              	                        <h2 class="strong">Registreer vandaag</h2>
+      					<div class="field">
+      						<div class="control has-icons-right">
+      							{{ form.user_name(class="input is-medium", type="text", placeholder="gebruikernaam") }}
+      							{% if form.user_name.errors %}
+      								<div class="notification is-warning">
+      									{% for error in form.user_name.errors %}
+      										<span>{{ error }}</span>
+      									{% endfor %}
+      								</div>
+      							{% endif %} 
+      						</div>
+      					</div>
+      					<div class=field>
+      						<div class="control has-icons-right">
+      							{{ form.email(class="input is-medium", required=True, type="email", placeholder="e-mail") }}
+      							{% if form.email.errors %}
+      								<div class="notification is-warning">
+      									{% for error in form.email.errors %}
+      										<span>{{ error }}</span>
+      									{% endfor %}
+      								</div>
+      							{% endif %} 
+      						</div>
+      					</div>
+      					<div class=field>
+      						<div class="control has-icons-right">
+      							{{ form.password(class="input is-medium", required=True, type="password", placeholder="wachtwoord") }}
+      						</div>
+      					</div>
+      					<div class=field>
+      						<div class="control has-icons-right">
+      							{{ form.confirm_password(class="input is-medium", required=True, type="password", placeholder="bevestig het wachtwoord") }}
+      						</div>
+      					</div>
+              	                </div>
+      				<br>
+      				<a>{{ form.submit(class="button is-info is-outlined", type="submit") }}</a>
+      	        	</form>
+      		</div>
+      	</section>
+{% endblock %}

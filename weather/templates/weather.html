@@ -1,0 +1,79 @@
+{% extends "layout.html" %}
+{% block content %}
+	<section class="section">
+		{% if alarm_information.alarm != '0' %}
+			<div class="container" id="sectioncontainer">
+				<p class="notification is-danger">
+					<strong>Weeralarm:</strong>
+					<strong>{{ alarm_information.alarmtxt }}</strong>
+				</p>
+
+			</div>
+		{% endif %}
+	</section>
+	<section>
+		<div class="container"  id="sectioncontainer">
+			<div class="columns columns is-multiline">
+				{% for weather in weather_data %}
+						<div class="column">
+							<h3 class="title is-3">  {{ weather.city }}</h3>
+							<div class="media has-text-left">
+								<h4 class="subtitle is-4">Actueel  </h4>
+								<figure class="image is-50x50 is-pulled-right">
+									<img src="static/{{ weather.icon }}.png" alt=Image >
+								</figure>
+							</div>
+							<ul>
+								<p>temperatuur {{ weather.temperature }} °C</p>
+								<p>Windrichting {{ weather.wind_richting }} </p>
+								<p>windsnelheid {{ weather.wind_v }} m/s</p>
+								<p>Luchtdruk {{ weather.luchtdruk }}</p>
+							</ul>
+							<br>
+							<div class="media">
+								<div>
+									<p><span class="subtitle"><strong>Verwacht voor vandaag:  </strong></span></p>
+								</div>
+								<figure class="image is-50x50 is-pulled-right">
+									<img src="static/{{ weather.expected_icon }}.png" alt=Image>
+								</figure>
+							</div>
+							<ul>
+								<p>max temperatuur {{ weather.expected_max_temp }} °C</p>
+								<p>min temperatuur {{ weather.expected_min_temp }} °C</p>
+								<p>windriching {{ weather.expected_wind_richting }}</p>
+								<p>windsnelheid {{ weather.expected_wind_v }} m/s</p>
+							</ul>
+							<p> {{ weather.description }} </p>
+							<br>
+							<div class="media" >
+								<p><span class="subtitle"><strong>Morgen:  </strong></span></p>
+								<figure class="imageis-50x50 is-pulled-right">
+									<img src="static/{{ weather.tomorrow_icon }}.png" alt=Image>
+								</figure>
+							</div>
+							<ul>
+								<p>max temperatuur {{ weather.tomorrow_max_temp }} °C</p>
+								<p>min temperatuur {{ weather.tomorrow_min_temp }} °C</p>
+								<p>windriching {{ weather.tomorrow_wind_richting }}</p>
+								<p> windsnelheid {{ weather.tomorrow_wind_v }} m/s</p>
+							</ul>
+							<br>
+							<div class="media">
+								<p><span class="subtitle"><strong>Overmorgen:  </strong></span></p>
+								<figure class="imageis-50x50 is-pulled-right">
+									<img src="static/{{ weather.dayaftertomorrow_icon }}.png" alt=Image>
+								</figure>
+							</div>
+							<ul>
+								<p>max temperatuur {{ weather.dayaftertomorrow_max_temp }} °C</p>
+								<p>min temperatuur {{ weather.dayaftertomorrow_min_temp }} °C</p>
+								<p>windriching {{ weather.dayaftertomorrow_wind_richting }}</p>
+								<p> windsnelheid {{ weather.dayaftertomorrow_wind_v }} m/s</p>
+							</ul>
+						</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+{% endblock %}

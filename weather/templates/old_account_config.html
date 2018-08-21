@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+{% block content %}
+	<section class="section">
+		<div class="container" id="sectioncontainer">
+			<div class="columns columns is-multiline">
+				<div class="column is-one-fifth">
+					<figure class="image is-128x128">
+                     				<img class="is-rounded" src="{{ image_file }}">
+                     			</figure>
+				</div>
+				<div class="column has-text-left">
+					<h3 class="title is-3">{{ current_user.user_name }}</h3>
+					<p>{{ current_user.email }}</p>
+				</div>
+			</div>
+		</div>
+	</section>
+        <section class="section">
+                <div class="container">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                                <!-- CSRF protetction -->
+                                {{ form.csrf_token }}
+                                <h5 class="subtitle is-5">Gebruiker account informatie</h5>
+                                <div class="control">
+                                        <div class="field">
+                                                <div class="control has-icons-right">
+                                                        {{ form.user_name(class="input is-medium", type="text", placeholder="gebruikernaam") }}
+                                                        {% if form.user_name.errors %}
+                                                                <div class="notification is-warning">
+                                                                        {% for error in form.user_name.errors %}
+                                                                                <span>{{ error }}</span>
+                                                                        {% endfor %}
+                                                                </div>
+                                                        {% endif %}
+                                                </div>
+                                        </div>
+                                        <div class=field>
+                                                <div class="control has-icons-right">
+                                                        {{ form.email(class="input is-medium", required=True, type="email", placeholder="e-mail") }}
+                                                        {% if form.email.errors %}
+                                                                <div class="notification is-warning">
+                                                                        {% for error in form.email.errors %}
+                                                                                <span>{{ error }}</span>
+                                                                        {% endfor %}
+                                                                </div>
+                                                        {% endif %}
+                                                </div>
+                                	</div>
+					<div class="field">
+                                                <div class="control">
+							{{ form.profile_picture.label}}
+							{{ form.profile_picture }}
+							{% if form.profile_picture.errors %}
+								<div class="notification is-warning has-text-weight-semibold is-small">
+									{% for error in form.profile_picture.errors %}
+									        <br><span>{{ error }}</span>
+									{% endfor %}
+								</div>
+							{% endif %}
+                        		        </div>
+					</div>
+				</div>
+                                <br>
+                                <`a>{{ form.submit(class="button is-info is-outlined", type="submit") }}</a>
+				<div class="table__wrapper">
+					<table class="sortable" id="table is-ordered">
+						<thead><tr><th>Locatie</th></tr></thead>
+						<tbody>
+							{% for locatie in Locations %}
+								<tr>
+									<td>{{ locatie.name }}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+                        </form>
+                </div>
+        </section>
+{% endblock %}

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+	    	<meta charset="UTF-8">
+	    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<title>What's the weather like?</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+	    	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css" />
+       		<section class="hero is-primary" "is-bold">
+			<div class="hero-body">
+				<div class="container">
+					<h1 class="title">
+						Wat is de weersverwachting?
+					</h1>
+				</div>
+			</div>
+		</section>
+		<nav class="navbar is-primary">
+		<div class="container">
+			<div id="navMenu" class="navbar-menu">
+			<div class="navbar-end">
+			    <a href="/" class="navbar-item">Home</a>
+			    <a href="/locations" class="navbar-item is-active">Locaties</a>
+			    <a href="/about" class="navbar-item">About</a>
+			    <a href="#" class="navbar-item">Uitloggen</a>
+			  </div>
+			</div>
+		</div>
+		</nav>
+       		<section class="section">
+                        <div class="control">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                        {% if messages %}
+                                                {% for category, message in messages %}
+                                                        <div class="control {{ category }}">
+                                                                {{ message }}
+                                                        </div>
+                                                {% endfor %}
+                                        {%endif %}
+                                {% endwith %}
+                        </div>
+                </section>
+	</head>
+	
+	<body>
+		<section class="section">
+			<div class="container">
+				<form method="POST">
+					<div class="field has-addons">
+						<div class="control is-expanded">
+							<input class="input" name="city" type="text" placeholder="City Name">
+						</div>
+						<div class="control">
+							<button class="button is-info">
+								Add City
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<br>
+		<footer class="footer">
+			<p><small>Another fine product from Hestia</small></p>
+		</footer>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+        <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                <title>What's the weather like?</title>
+                <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+        </head>
+
+        <body>
+
+	        <section class="hero is-primary" "is-bold">
+	                <div class="hero-body">
+	                        <div class="container">
+	                                <h1 class="title">
+	                                        What's the weather like?
+	                                </h1>
+	                        </div>
+	                </div>
+	        </section>
+	
+		<section class="section">
+			<div class="container">
+				<form action="">
+					<div class="box">
+						<article class="media">
+							<dv class="media-content">
+								<h3 class="title is-3"><strong>About this app</strong></h3>
+								<p>Ths is a demonstration app to experiment with LXC and LXD cloud deployment. De app is deployed on a cluster of three LXC containers nodes and one master (LXD).</p>
+								<br>
+								<p>The app retreves the current weather and the forcasted weather from the KNMI server. The information is shown on the home page</p>
+								<br>
+								<dv class="control">
+									<a href="/" ><button type="button" class="button is-info">
+										Return to the home page
+									</button></a>
+								</div>
+							</div>
+						</article>
+					</div>
+				</form>
+			</div> <!-- main-container -->
+		</section>
+		<br>
+		<footer class="footer">
+	        	<p><small>Another fine product from Hestia</small></p>
+		</footer>
+	</body>
+</html>
